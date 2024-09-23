@@ -1,0 +1,161 @@
+version: '3.8'
+
+services:
+  # Config Server
+  config-server:
+    image: openjdk:17-jdk-slim
+    container_name: config-server
+    build:
+      context: ./config-server
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./config-server:/app
+    networks:
+      - microservices-net
+
+  # Eureka Server
+  eureka-server:
+    image: openjdk:17-jdk-slim
+    container_name: eureka-server
+    build:
+      context: ./eureka-server
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+    depends_on:
+      - config-server
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
+    networks:
+      - microservices-net
+
+  # Customer Service
+  customer-service:
+    image: openjdk:17-jdk-slim
+    container_name: customer-service
+    build:
+      context: ./customer-service
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    depends_on:
+      - config-server
+      - eureka-server
+      - mongo
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
+    networks:
+      - microservices-net
+
+  # Notification Service
+  notification-service:
+    image: openjdk:17-jdk-slim
+    container_name: notification-service
+    build:
+      context: ./notification-service
+      dockerfile: Dockerfile
+    ports:
+      - "8085:8085"
+    depends_on:
+      - config-server
+      - eureka-server
+    networks:
+      - microservices-net
+
+  # Order Service
+  order-service:
+    image: openjdk:17-jdk-slim
+    container_name: order-service
+    build:
+      context: ./order-service
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8083"
+    depends_on:
+      - config-server
+      - eureka-server
+      - postgres
+    networks:
+      - microservices-net
+
+  # Payment Service
+  payment-service:
+    image: openjdk:17-jdk-slim
+    container_name: payment-service
+    build:
+      context: ./payment-service
+      dockerfile: Dockerfile
+    ports:
+      - "8084:8084"
+    depends_on:
+      - config-server
+      - eureka-server
+      - mysql
+    networks:
+      - microservices-net
+
+  # Product Service
+  product-service:
+    image: openjdk:17-jdk-slim
+    container_name: product-service
+    build:
+      context: ./product-service
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    depends_on:
+      - config-server
+      - eureka-server
+      - postgres
+    networks:
+      - microservices-net
+
+  # MongoDB (for Customer Service)
+  mongo:
+    image: mongo
+    container_name: mongo_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - microservices-net
+
+  # PostgreSQL (for Order and Product Service)
+  postgres:
+    image: postgres:13-alpine
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - microservices-net
+
+  # MySQL (for Payment Service)
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: payment_db
+    ports:
+      - "1986:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - microservices-net
+
+networks:
+  microservices-net:
+    driver: bridge
+
+volumes:
+  mongo_data:
+  postgres_data:
+  mysql_data:

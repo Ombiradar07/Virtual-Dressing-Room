@@ -1,0 +1,19 @@
+# Ignore build directories
+target/
+**/target/
+**/build/
+
+# Ignore IDE files
+.idea/
+*.iml
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore sensitive configuration files
+/services/config-server/src/main/resources/configurations/*.properties
+/services/config-server/src/main/resources/configurations/*.yml
+
+# Additional pattern to ensure all configurations in the specific folder are ignored
+/services/config-server/src/main/resources/configurations/**
