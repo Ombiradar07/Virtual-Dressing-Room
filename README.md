@@ -78,12 +78,15 @@ The **Virtual Dressing Room Microservices Project** is a cutting-edge e-commerce
 
 This project follows a microservices-based architecture, with each service independently deployed. All services register with the **Eureka Server** for service discovery and communicate via **Feign Client**. The system can be easily scaled and extended with new features.
 
-![Architecture Diagram](https://user-images.githubusercontent.com/1234567/architecture-diagram.png)
+![Architecture Diagram](./assets/architecture-diagram.png)
 
-## 🔧 Setup and Installation
+## 🛠️ Future Enhancements
+- **Avatar-based Virtual Try-On**: A separate microservice to generate user avatars and simulate virtual dressing.
+- **Real-time Notifications**: Integrate WebSocket for real-time order status updates.
+- **Analytics Service**: Track and display user engagement and sales statistics.
 
-### Prerequisites
-- Java 17+
-- Maven
-- Docker
-- MongoDB, MySQL, PostgreSQL
+## 🤝 Contributing
+Contributions are welcome! Please submit a pull request or create an issue for suggestions.
+
+## 📝 License
+This project is licensed under the [MIT License](LICENSE).
