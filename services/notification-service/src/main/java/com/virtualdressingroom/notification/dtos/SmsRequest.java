@@ -1,8 +1,7 @@
 package com.virtualdressingroom.notification.dtos;
 
-public record NotificationRequest(
+public record SmsRequest(
         String to,
-        String subject,
         String message
 ) {
 }

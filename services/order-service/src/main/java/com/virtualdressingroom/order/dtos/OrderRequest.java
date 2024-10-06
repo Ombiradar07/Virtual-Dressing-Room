@@ -5,7 +5,7 @@ public record OrderRequest(
         Integer productId,
 
 
-        Integer customerId,
+        String customerId,
 
 
         Integer quantity,

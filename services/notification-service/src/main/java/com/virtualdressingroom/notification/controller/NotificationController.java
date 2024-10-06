@@ -1,6 +1,7 @@
 package com.virtualdressingroom.notification.controller;
 
-import com.virtualdressingroom.notification.dtos.NotificationRequest;
+import com.virtualdressingroom.notification.dtos.EmailRequest;
+import com.virtualdressingroom.notification.dtos.SmsRequest;
 import com.virtualdressingroom.notification.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +18,14 @@ public class NotificationController {
 
     private final NotificationService notificationService;
 
-    @PostMapping("/send-email")
-    public ResponseEntity<String> sendEmail(@RequestBody NotificationRequest request) {
+    @PostMapping("/email")
+    public ResponseEntity<String> sendEmail(@RequestBody EmailRequest request) {
         notificationService.sendEmail(request);
         return ResponseEntity.ok("Email sent successfully");
     }
 
-    @PostMapping("/send-sms")
-    public ResponseEntity<String> sendSms(@RequestBody NotificationRequest request) {
+    @PostMapping("/sms")
+    public ResponseEntity<String> sendSms(@RequestBody SmsRequest request) {
         notificationService.sendSms(request);
         return ResponseEntity.ok("SMS sent successfully");
     }

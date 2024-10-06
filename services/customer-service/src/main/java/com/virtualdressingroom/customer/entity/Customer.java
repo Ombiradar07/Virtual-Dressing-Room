@@ -1,9 +1,11 @@
 package com.virtualdressingroom.customer.entity;
 
 import com.virtualdressingroom.customer.util.Address;
+import jakarta.annotation.Generated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.aot.generate.GenerationContext;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 

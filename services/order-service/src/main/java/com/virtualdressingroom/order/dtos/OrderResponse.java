@@ -10,7 +10,7 @@ public record OrderResponse(
 
         Integer productId,
 
-        Integer customerId,
+        String customerId,
 
         Integer quantity,
 

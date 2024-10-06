@@ -57,10 +57,10 @@ public class ProductServiceImpl implements ProductService {
         product.setAvailableQuantity(newAvailableQuantity);
 
         // Save the updated product back to the database
-        repository.save(product);
+        Product updatedProduct = repository.save(product);
 
         // Map the product and request to a purchase response and return it
-        return mapper.productToProductPurchaseResponse(product, request.quantity());
+        return mapper.productToProductPurchaseResponse(updatedProduct, request.quantity());
     }
 
     @Transactional
